@@ -5,8 +5,7 @@ import lk.ijse.userservice.model.User;
 import lk.ijse.userservice.model.UserRole;
 import org.springframework.stereotype.Repository;
 
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Repository
@@ -26,5 +25,29 @@ public class UserRepo {
         }
         store.put(user.getId(), user);
         return user;
+    }
+
+    public List<User> findAll() {
+        return new ArrayList<>(store.values());
+    }
+
+    public Optional<User> findById(String id) {
+        return Optional.ofNullable(store.get(id));
+    }
+
+    public Optional<User> findByEmail(String email) {
+        return store.values().stream().filter(u -> u.getEmail().equalsIgnoreCase(email)).findFirst();
+    }
+
+    public void deleteById(String id) {
+        store.remove(id);
+    }
+
+    public boolean existsById(String id) {
+        return store.containsKey(id);
+    }
+
+    public boolean existsByEmail(String email) {
+        return findByEmail(email).isPresent();
     }
 }
