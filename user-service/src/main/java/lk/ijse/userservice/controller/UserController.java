@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -41,5 +42,53 @@ public class UserController {
                 "name", user.getName(),
                 "role", user.getRole()
         ));
+    }
+
+    @GetMapping
+    public List<User> getAll() {
+        return userRepo.findAll();
+    }
+
+    @GetMapping("/{id")
+    public User getById(@PathVariable String id) {
+        return userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
+    }
+
+    @PutMapping("/{id}")
+    public User update(@PathVariable String id, @Valid @RequestBody User updatedUser) {
+        User existingUser = userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
+        updatedUser.setId(existingUser.getId());
+        return userRepo.save(updatedUser);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable String id) {
+        if (!userRepo.existsById(id)) {
+            throw new ResourceNotFoundException("User not found with id: " + id);
+        }
+        userRepo.deleteById(id);
+    }
+
+    @GetMapping("/{id}/history")
+    public List<String> getHistory(@PathVariable String id) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
+        return user.getBookingHistory();
+    }
+
+    @PostMapping("/{id}/history")
+    public User addHistory(@PathVariable String id, @RequestBody Map<String, String> body) {
+        User user = userRepo.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+        user.getBookingHistory().add(body.getOrDefault("record", "booking-" + System.currentTimeMillis()));
+        return userRepo.save(user);
+    }
+
+    @GetMapping("/health")
+    public ResponseEntity<String> health() {
+        return ResponseEntity.ok("User Service is running");
     }
 }
