@@ -82,9 +82,9 @@ public class UserController {
     @PostMapping("/{id}/history")
     public User addHistory(@PathVariable String id, @RequestBody Map<String, String> body) {
         User user = userRepo.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
         user.getBookingHistory().add(body.getOrDefault("record", "booking-" + System.currentTimeMillis()));
-        return userRepo.save(user);
+        return  userRepo.save(user);
     }
 
     @GetMapping("/health")
