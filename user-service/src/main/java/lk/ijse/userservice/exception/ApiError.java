@@ -12,7 +12,7 @@ public class ApiError {
     private String message;
     private String path;
 
-    public ApiError(String path, String message, String error, int status) {
+    public ApiError(int status, String message, String error, String path) {
         this.path = path;
         this.message = message;
         this.error = error;
