@@ -49,7 +49,7 @@ public class UserController {
         return userRepo.findAll();
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public User getById(@PathVariable String id) {
         return userRepo.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found with this id: " + id));
