@@ -2,6 +2,7 @@ package lk.ijse.vehicleservice.repository;
 
 import jakarta.annotation.PostConstruct;
 import lk.ijse.vehicleservice.model.Vehicle;
+import lk.ijse.vehicleservice.model.VehicleStatus;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
