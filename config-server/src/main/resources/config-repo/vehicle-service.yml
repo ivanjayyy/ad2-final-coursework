@@ -1,0 +1,5 @@
+server:
+  port: 8082
+
+final-coursework:
+  service-name: Vehicle Service
