@@ -1,0 +1,7 @@
+server:
+  port: 8084
+
+spms:
+  service-name: "Payment Service"
+  payment:
+    success-rate: 0.9
