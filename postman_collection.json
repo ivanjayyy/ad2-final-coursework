@@ -1,0 +1,914 @@
+{
+  "info": {
+    "_postman_id": "3c5e49bc-0d04-4080-a4cc-342069f714f0",
+    "name": "SPMS - Smart Parking Management System",
+    "description": "Postman collection for the Smart Parking Management System microservices. All requests go through the API Gateway on port 8080.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "49847053",
+    "_collection_link": "https://go.postman.co/collection/49847053-3c5e49bc-0d04-4080-a4cc-342069f714f0?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "Parking Space Service",
+      "item": [
+        {
+          "name": "List all parking spaces",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Filter parking spaces (city, zone, status)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking?city=Colombo&zone=Zone-A&status=AVAILABLE",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking"
+              ],
+              "query": [
+                {
+                  "key": "city",
+                  "value": "Colombo"
+                },
+                {
+                  "key": "zone",
+                  "value": "Zone-A"
+                },
+                {
+                  "key": "status",
+                  "value": "AVAILABLE"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get parking space by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/{{parkingSpaceId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "{{parkingSpaceId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Create parking space",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"spaceNumber\": \"C-301\",\n  \"city\": \"Colombo\",\n  \"zone\": \"Zone-C\",\n  \"ownerId\": \"owner-3\",\n  \"pricePerHour\": 3.0\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update parking space",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"spaceNumber\": \"C-301\",\n  \"city\": \"Colombo\",\n  \"zone\": \"Zone-C\",\n  \"ownerId\": \"owner-3\",\n  \"pricePerHour\": 3.5\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/{{parkingSpaceId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "{{parkingSpaceId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update parking space status",
+          "request": {
+            "method": "PATCH",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/{{parkingSpaceId}}/status?status=OCCUPIED",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "{{parkingSpaceId}}",
+                "status"
+              ],
+              "query": [
+                {
+                  "key": "status",
+                  "value": "OCCUPIED"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Reserve parking space",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/{{parkingSpaceId}}/reserve",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "{{parkingSpaceId}}",
+                "reserve"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Release parking space",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/{{parkingSpaceId}}/release",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "{{parkingSpaceId}}",
+                "release"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete parking space",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/{{parkingSpaceId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "{{parkingSpaceId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get non-existent parking space (404 test)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/does-not-exist",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "does-not-exist"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Vehicle Service",
+      "item": [
+        {
+          "name": "List all vehicles",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get vehicle by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Register vehicle",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"WP-NEW-0007\",\n  \"type\": \"CAR\",\n  \"ownerUserId\": \"user-1\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update vehicle",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"plateNumber\": \"WP-NEW-0007\",\n  \"type\": \"VAN\",\n  \"ownerUserId\": \"user-1\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Simulate vehicle entry",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles/{{vehicleId}}/entry?parkingSpaceId={{parkingSpaceId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}",
+                "entry"
+              ],
+              "query": [
+                {
+                  "key": "parkingSpaceId",
+                  "value": "{{parkingSpaceId}}"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Simulate vehicle exit",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles/{{vehicleId}}/exit",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}",
+                "exit"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete vehicle",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles/{{vehicleId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "{{vehicleId}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "User Service",
+      "item": [
+        {
+          "name": "Register user",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Charlie Driver\",\n  \"email\": \"charlie@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"DRIVER\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/register",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "register"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/login",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List all users",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get user by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/{{userId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Update user",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice D.\",\n  \"email\": \"alice@example.com\",\n  \"password\": \"password123\",\n  \"role\": \"DRIVER\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/{{userId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get booking history",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/{{userId}}/history",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "history"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Add booking history record",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"record\": \"Booked space A-101 on 2026-07-31\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/{{userId}}/history",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}",
+                "history"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete user",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/{{userId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Login with wrong password (401/400 test)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"alice@example.com\",\n  \"password\": \"wrongpass\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/login",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "login"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Payment Service",
+      "item": [
+        {
+          "name": "Process payment (success test card)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"vehicleId\": \"{{vehicleId}}\",\n  \"parkingSpaceId\": \"{{parkingSpaceId}}\",\n  \"amount\": 5.50,\n  \"cardNumber\": \"4111111111111111\",\n  \"expiryDate\": \"12/28\",\n  \"cvv\": \"123\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments/process",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "process"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Process payment (decline test card)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"vehicleId\": \"{{vehicleId}}\",\n  \"parkingSpaceId\": \"{{parkingSpaceId}}\",\n  \"amount\": 5.50,\n  \"cardNumber\": \"0000000000000000\",\n  \"expiryDate\": \"12/28\",\n  \"cvv\": \"123\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments/process",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "process"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get payment by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments/{{paymentId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "{{paymentId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "List all payments",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get payments by user",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments/user/{{userId}}",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "user",
+                "{{userId}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Process payment with invalid card (validation test)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": \"{{userId}}\",\n  \"vehicleId\": \"{{vehicleId}}\",\n  \"parkingSpaceId\": \"{{parkingSpaceId}}\",\n  \"amount\": 5.50,\n  \"cardNumber\": \"abc\",\n  \"expiryDate\": \"12/28\",\n  \"cvv\": \"12\"\n}"
+            },
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments/process",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "process"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Health Checks",
+      "item": [
+        {
+          "name": "Eureka Dashboard",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8761",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8761"
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Config Server - parking-service config",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:8888/parking-service/default",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "8888",
+              "path": [
+                "parking-service",
+                "default"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Parking Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/parking/health",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "parking",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Vehicle Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/vehicles/health",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "vehicles",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "User Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/users/health",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "users",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Payment Service Health",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{gatewayUrl}}/api/payments/health",
+              "host": [
+                "{{gatewayUrl}}"
+              ],
+              "path": [
+                "api",
+                "payments",
+                "health"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ],
+  "variable": [
+    {
+      "key": "gatewayUrl",
+      "value": "http://localhost:8080"
+    },
+    {
+      "key": "parkingSpaceId",
+      "value": ""
+    },
+    {
+      "key": "vehicleId",
+      "value": ""
+    },
+    {
+      "key": "userId",
+      "value": ""
+    },
+    {
+      "key": "paymentId",
+      "value": ""
+    }
+  ]
+}
